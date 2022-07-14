@@ -39,7 +39,7 @@ def password_gen(max_length=input("Enter the desired length of your password: ")
             else:
                 print ("This is a strong password!")
         else:
-            print ("Your password must be between 9 and 20 characters")
+            print ("Weak password. A strong password must be between 8 and 20 characters")
     
     strong_password(password)
     

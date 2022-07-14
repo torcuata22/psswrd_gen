@@ -33,3 +33,27 @@ class Blockchain():
             }
         self.pending_transactions.append(transaction) 
         return self.last_block['index']+1
+    
+    #f(x) to hash blocks:
+    def hash(self, block):
+        string_object = json.dumps(block, sort_keys = True) #encodes block (JSON object) into string
+        block_string = string_object.encode() #encodes string into any encoding supported by Python
+        
+        raw_hash = hashlib.sha256(block_string) #sha256 is a hash function used by bitcoin, turns it into hexadecimal string
+        hex_hash = raw_hash.hexdigest()
+        
+        return hex_hash
+    
+#Building the chain:        
+blockchain = Blockchain()
+t1 = blockchain.new_transaction('Satoshi', 'Loki', '4 BTC')
+t2 = blockchain.new_transaction('Loki', 'Freyby', '2 BTC')
+t3 = blockchain.new_transaction('Freyby', 'Satoshi', '1 BTC')
+blockchain.new_block(12345)
+
+t4 = blockchain.new_transaction('Freyby', 'Loki', '5 BTC')
+t5 = blockchain.new_transaction('Loki', 'Satoshi', '4 BTC')
+t6 = blockchain.new_transaction('Satoshi', 'Freyby', '3 BTC')
+blockchain.new_block(6789)
+
+print('blockchain', blockchain.chain)

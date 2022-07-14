@@ -16,6 +16,20 @@ class Blockchain():
             'proof': proof, 
             'previous_hash': previous_hash or self.hash(self.chain[-1]) #hashed version of most recent approved block
         }
-        self.pending_transactions = []
-        self.chain.append(block)
+        self.pending_transactions = [] #empty pending transactions (we added them in 'transactions')
+        self.chain.append(block) 
         return block
+    
+    #search blockchain for most recent block:
+    @property
+    def last_block(self):
+        return self.chain[-1]
+
+    def new_transaction(self, sender, recipient, amount):
+        transaction = {
+            'sender': sender,
+            'recipient': recipient,
+            'amount': amount  
+            }
+        self.pending_transactions.append(transaction) 
+        return self.last_block['index']+1
